@@ -1,4 +1,3 @@
-#!/bin/bash
 source components/common.sh
 
 ## Installing nginx

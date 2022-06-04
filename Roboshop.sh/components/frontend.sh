@@ -1,5 +1,5 @@
 #!/bin/bash
-source components/commmon.sh
+Source components/commmon.sh
 
 ## Installing nginx
 

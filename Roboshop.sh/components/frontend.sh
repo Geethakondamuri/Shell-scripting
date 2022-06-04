@@ -20,4 +20,14 @@ cd /tmp
 unzip -o frontend.zip &>>LOG_FILE
 
 ##copy extracted file
-###echo "copying the unzipped file"
+echo "copying the unzipped file"
+cp -r frontend-main/static/* /usr/share/nginx/html/ &>>LOG_FILE
+
+##Copy nginx roboshop confid
+echo "copying nginx config"
+cp frontend-main/localhost.conf /etc/nginx/defaault.d/roboshop.conf &>>LOG_FILE
+
+##staring nginx
+Echo starting nginx
+systemctl enable nginx
+systemctl start nginx

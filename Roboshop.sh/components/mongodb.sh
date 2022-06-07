@@ -1,4 +1,3 @@
-#!/bin/bash
 source common.sh
 
 ## Setup MongoDB repos

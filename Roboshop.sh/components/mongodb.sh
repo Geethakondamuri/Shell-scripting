@@ -12,6 +12,7 @@ yum install -y mongodb-org &>>$LOG_FILE
 ## Searching 127.0.0.1 in /etc/mongod.conf
 Echo "Searching 127.0.0.1 in /etc/mongod.conf"
 Echo "grep 127.0.0.1 /etc/mongod.conf"
+grep 127.0.0.1 /etc/mongod.conf
 
 ## Updating the mongodb config
 Echo "Upadating mongodb config"

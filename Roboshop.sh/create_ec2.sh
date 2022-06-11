@@ -8,7 +8,10 @@ if [ -z "${Instance_Name}" ]; then
   exit
 fi
 
-AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" --query 'Images[*].[ImageId]' --output text)
+## For accessing
+##aws configure
+
+AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" --query "Images[*].[ImageId]" --output text)
 if [-z "${AMI_ID}" ]; then
   echo -e "\e[1;32mUnable to find image ami Id\e[0m"
   exit

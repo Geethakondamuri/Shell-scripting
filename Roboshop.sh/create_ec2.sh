@@ -11,7 +11,7 @@ fi
 ## For accessing
 ##aws configure
 
-AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" --query "Images[*].[ImageId]" --output text)
+AMI_ID=${aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" --query "Images[*].[ImageId]" --output text}
 echo $(AMI_ID)
 exit
 if [-z "${AMI_ID}" ]; then

@@ -19,7 +19,8 @@ else
 fi
 ## Finding Security Groups
 Private_Ip=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${Instance_Name}" --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
-If [ -z "${Private_Ip}" ]; then
+if [ -z "${Private_Ip}" ]; then
+
   SG_ID=$(aws ec2 describe-instances --filters "Name=tname,values=allow-all-ports" --query "SecurityGroups[*].GroupId" --output text)
   if [ -z "${SG_ID}" ]; then
     echo "\e[1;33mSecurity group allow ports does not exists"

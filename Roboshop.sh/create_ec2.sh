@@ -6,6 +6,8 @@ Instance_Name=$1
 if [ -z "${Instance_Name}" ]; then
   echo -e "\e[1;31mInstance Name argument is needed\e[0m"
   exit
+else
+  echo -e "\e[1;31Inastance is ready to create\e[0m"
 fi
 
 ## For accessing

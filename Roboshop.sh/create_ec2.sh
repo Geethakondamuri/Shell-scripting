@@ -21,22 +21,22 @@ echo "${Instance_Name}"
 exit
 
 ## Finding Security Groups
-Private_Ip=$(aws ec2 describe-instances --filters "Name=tag:Name,values=${Instance_Name}" --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
+Private_Ip=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${Instance_Name}" --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
 if [ -z "${Private_Ip}" ]; then
 
-  SG_ID=$(aws ec2 describe-instances --filters "Name=tag:name,values=allow-all-ports" --query "SecurityGroups[*].GroupId" --output text)
+  SG_ID=$(aws ec2 describe-instances --filters "Name=tag:name,Values=allow-all-ports" --query "SecurityGroups[*].GroupId" --output text)
   if [ -z "${SG_ID}" ]; then
     echo "\e[1;33mSecurity group allow ports does not exists"
     exit
   fi
 ## Creating Instance
-  aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{Key=NAME,Value=${Instance_Name}}]" "ResourceType=instances-request,Tags=[{Key=NAME,Value=${Instance_Name}}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}"--security-group-ids "${SG_ID}"
+  aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{Key=NAME,Value=${Instance_Name}}]" "ResourceType=instances-request,Tags=[{Key=NAME,Values=${Instance_Name}}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}"--security-group-ids "${SG_ID}"
   echo -e "\e[1;Instance created successfully\e[0m"
 else
   echo -e "\e[34mInstance ${Instance_Name} already exists\e[0m"
 fi
 
-IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,values=${Instance_Name}" --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
+IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${Instance_Name}" --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
 
 echo "{
             "Comment": "CREATE/DELETE/UPSERT a record ",

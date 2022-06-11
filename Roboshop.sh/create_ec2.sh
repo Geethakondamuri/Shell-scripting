@@ -17,8 +17,6 @@ if [ -z "${AMI_ID}" ]; then
 else
   echo -e "\e[1;33mAMI ID=${AMI_ID}\e[0m"
 fi
-echo "${Instance_Name}"
-exit
 
 ## Finding Security Groups
 Private_Ip=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${Instance_Name}" --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)

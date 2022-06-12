@@ -21,6 +21,7 @@ fi
 ## Finding Security Groups
   Private_Ip=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${Instance_Name}" --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
 echo "${Private_Ip}"
+
 if [ -z "${Private_Ip}" ]; then
 
   SG_ID=$(aws ec2 describe-instances --filters "Name=tag:name,Values=allow-all-ports" --query "SecurityGroups[*].GroupId" --output text)

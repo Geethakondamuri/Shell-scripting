@@ -9,7 +9,7 @@ fi
 ## For accessing
 ##aws configure
 
-AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" --query "Images[*].[ImageId]" --output text)
+AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" --query "Images[*].ImageId" --output text)
 
 if [ -z "${AMI_ID}" ]; then
   echo -e "\e[1;32mUnable to find image ami Id\e[0m"
@@ -31,7 +31,7 @@ if [ -z "${Private_Ip}" ]; then
     exit
   fi
 ## Creating Instance
-  aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{Key=NAME,Value=${Instance_Name}}]" "ResourceType=instances-request,Tags=[{Key=NAME,Values=${Instance_Name}}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}"--security-group-ids "${SG_ID}"
+  aws ec2 run-instances --image-id "${AMI_ID}" --instance-type "t3.micro" --output text --tag-specifications "ResourceType=instance,Tags=[{Key=NAME,Value=${Instance_Name}}]" "ResourceType=instances-request,Tags=[{Key=NAME,Values=${Instance_Name}}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}"--security-group-ids "${SG_ID}"
   echo -e "\e[1; Instance created successfully\e[0m"
   exit
 

@@ -37,7 +37,6 @@ if [ -z "${Private_Ip}" ]; then
 aws ec2 run-instances --image-id "${AMI_ID}" --instance-type "t3.micro" --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${Instance_Name}}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${Instance_Name}}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}" --security-group-ids "${SG_ID}"
 
   echo -e "\e[1;33mInstance created successfully\e[0m"
-  exit
 else
   echo -e "\e[34mInstance ${Instance_Name} already exists\e[0m"
 fi

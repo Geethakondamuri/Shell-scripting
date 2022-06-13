@@ -33,14 +33,11 @@ if [ -z "${Private_Ip}" ]; then
 ## Creating Instance
 ## aws ec2 run-instances --image-id "${AMI_ID}" --instance-type "t3.micro" --output text --tag-specifications "ResourceType=instances,Tags=[{Key=Name,Value=${Instance_Name}}]" "ResourceType=instances-request,Tags=[{Key=NAME,Values=${Instance_Name}}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}"--security-group-ids "${SG_ID}"
 
+##aws ec2 run-instances --image-id "ami-0bb6af715826253bf" --instance-type "t3.micro" --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=frontend}]" --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=frontend}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}" --security-group-ids "sg-09f666e4e00dff33e"
+
 aws ec2 run-instances --image-id "${AMI_ID}" --instance-type "t3.micro" --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${Instance_Name}}]" --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${Instance_Name}}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}" --security-group-ids "${SG_ID}"
 
-
- ##aws ec2 run-instances --image-id "ami-0bb6af715826253bf" --instance-type "t3.micro" --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=frontend}]" --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=frontend}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}" --security-group-ids "sg-09f666e4e00dff33e"
-
-
-  echo -e "\e[1; Instance created successfully\e[0m"
-  exit
+  echo -e "\e[1;33mInstance created successfully\e[0m"
 
 else
   echo -e "\e[34mInstance ${Instance_Name} already exists\e[0m"

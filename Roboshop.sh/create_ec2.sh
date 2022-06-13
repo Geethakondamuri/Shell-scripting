@@ -1,6 +1,7 @@
 #!/bin/bash
 
 Instance_Name=$1
+echo "$Instance_Name"
 if [ -z "${Instance_Name}" ]; then
   echo -e "\e[1;31mInstance Name argument is needed\e[0m"
   exit
@@ -38,7 +39,6 @@ if [ -z "${Private_Ip}" ]; then
 aws ec2 run-instances --image-id "${AMI_ID}" --instance-type "t3.micro" --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${Instance_Name}}]" --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${Instance_Name}}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}" --security-group-ids "${SG_ID}"
 
   echo -e "\e[1;33mInstance created successfully\e[0m"
-
 else
   echo -e "\e[34mInstance ${Instance_Name} already exists\e[0m"
 fi
@@ -54,8 +54,8 @@ echo "{
                                     "Type": "A",
                                     "TTL": 300,
                                  "ResourceRecords": [{ "Value": "IPADDRESS"}]
-
-}}]}" | sed -e "s/DNSNAME/${Instance_Name}/" -e "s/IPADDRESS/${IPADDRESS}/" >/tmp/record.json
+}}]
+}" | sed -e "s/DNSNAME/${Instance_Name}/" -e "s/IPADDRESS/${IPADDRESS}/" >/tmp/record.json
 exit
 Zone_Id=$(aws route53 list-hosted-zones -query "HostedZone[*].{name.Name,ID:Id}" --output text | grep roboshop.internal | awk "{print $1}" | awk "{print $3}")
 

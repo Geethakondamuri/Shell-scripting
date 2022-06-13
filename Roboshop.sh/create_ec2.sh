@@ -1,4 +1,6 @@
 #!/bin/bash
+Log=/tmp/instance-create.log
+rm -r $Log
 
 Instance_Name=$1
 
@@ -34,7 +36,7 @@ if [ -z "${Private_Ip}" ]; then
   fi
 ## Creating Instance
 
-aws ec2 run-instances --image-id "${AMI_ID}" --instance-type "t3.micro" --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${Instance_Name}}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${Instance_Name}}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}" --security-group-ids "${SG_ID}"
+aws ec2 run-instances --image-id "${AMI_ID}" --instance-type "t3.micro" --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${Instance_Name}}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${Instance_Name}}]" --instance-market-options "MarketType=spot,SpotOptions={"InstanceInterruptionBehavior=stop,SpotInstanceType=persistent"}" --security-group-ids "${SG_ID}" &>>$Log
 
   echo -e "\e[1;33mInstance created successfully\e[0m"
 else
@@ -58,5 +60,5 @@ echo "{
 Zone_Id=$(aws route53 list-hosted-zones --query "HostedZones[*].{name:Name,ID:Id}" --output text | grep roboshop.internal | awk '{print $1}' | awk -F / '{print $3}')
 echo "${Zone_Id}"
 
-aws route53 change-resource-record-sets --hosted-zone-id $Zone_Id --change-batch file:///tmp/record.json
+aws route53 change-resource-record-sets --hosted-zone-id ${Zone_Id} --change-batch file:///tmp/record.json --output text &>>$Log
 echo -e "\e[1;36mDNSNAME created successfully\e[0m"

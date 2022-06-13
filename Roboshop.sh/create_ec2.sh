@@ -54,7 +54,7 @@ echo "{
                                     "Type": "A",
                                     "TTL": 300,
                                  "ResourceRecords": [{ "Value": "IPADDRESS"}]
-}}]}" | sed -e "s/DNSNAME/${Instance_Name}" -e "s/IPADDRESS/${IPADDRESS}" >/tmp/record.json
+}}]}" | sed -e "s/DNSNAME/${Instance_Name}/s" -e "s/IPADDRESS/${IPADDRESS}/s" >/tmp/record.json
 
 Zone_Id=$(aws route53 list-hosted-zones -query "HostedZone[*].{name.Name,ID:Id"} --output text | grep roboshop.internal | awk "{print $1}" | awk "{print $3}")
 

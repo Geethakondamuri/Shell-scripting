@@ -1,7 +1,7 @@
 #!/bin/bash
 
 Instance_Name=$1
-echo "$Instance_Name"
+
 if [ -z "${Instance_Name}" ]; then
   echo -e "\e[1;31mInstance Name argument is needed\e[0m"
   exit

@@ -44,7 +44,7 @@ else
 fi
 
 IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${Instance_Name}" --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
-
+echo "${IPADDRESS}"
 echo "{
             "Comment": "CREATE/DELETE/UPSERT a record ",
             "Changes": [{

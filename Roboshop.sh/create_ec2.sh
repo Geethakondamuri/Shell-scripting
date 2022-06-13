@@ -56,6 +56,7 @@ echo "{
 }" | sed -e "s/DNSNAME/${Instance_Name}/" -e "s/IPADDRESS/${IPADDRESS}/" >/tmp/record.json
 
 Zone_Id=$(aws route53 list-hosted-zones --query "HostedZone[*].{name:Name,ID:Id}" --output text | grep roboshop.internal | awk "{print $1}" | awk "{print $3}")
+echo "${Zone_Id}"
 
 aws route53 change-resource-record-sets --hosted-zone-id $Zone_Id --change-batch file:///tmp/record.json
 echo -e "\e[1; DNSNAME created successfully\e[0m"

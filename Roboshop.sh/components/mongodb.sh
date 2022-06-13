@@ -14,6 +14,7 @@ echo "grep 127.0.0.1 /etc/mongod.conf"
 grep 127.0.0.1 /etc/mongod.conf
 
 ## Updating the mongodb config
+## nslookup record name of route53
 echo "Upadating mongodb config"
 sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>>$LOG_FILE
 

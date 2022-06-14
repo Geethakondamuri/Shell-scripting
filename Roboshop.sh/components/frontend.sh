@@ -28,10 +28,14 @@ cp -r frontend-main/static/* /usr/share/nginx/html/ &>>$LOG_FILE
 STAT $?
 
 ##Copy nginx roboshop config
-##echo "copying nginx config"
-##cp -r frontend-main/localhost.conf /etc/nginx/defaault.d/roboshop.conf &>>$LOG_FILE
+echo "copying nginx config"
+cp frontend-main/localhost.conf /etc/nginx/defaault.d/roboshop.conf &>>$LOG_FILE
 ##cp localhost.conf /etc/nginx/defaault.d/roboshop.conf
 ##STAT $?
+
+echo "update roboshop config"
+sed -i -e "s/localhost.conf/catalogue.roboshop.internal/" /etc/nginx/defaault.d/roboshop.conf
+STAT $?
 
 ##staring nginx
 echo "starting nginx"

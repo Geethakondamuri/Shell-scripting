@@ -36,7 +36,7 @@ fi
   ## Extracting the ${COMPONENT} file
   echo "Extractingthe file"
   cd /home/roboshop
-  unzip -o ${COMPONENT}.zip
+  unzip -o /tmp/${COMPONENT}.zip
   STAT $?
 
   ## Copy ${COMPONENT} file to ${COMPONENT}

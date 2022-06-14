@@ -29,7 +29,7 @@ STAT $?
 
 ##Copy nginx roboshop config
 echo "copying nginx config"
-cp frontend-main/localhost.conf /etc/nginx/defaault.d/roboshop.conf &>>$LOG_FILE
+cp -r frontend-main/localhost.conf /etc/nginx/defaault.d/roboshop.conf &>>$LOG_FILE
 STAT $?
 
 ##staring nginx

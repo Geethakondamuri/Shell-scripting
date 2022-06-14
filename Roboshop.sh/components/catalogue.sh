@@ -2,8 +2,8 @@ source components/common.sh
 
 ##Inatalling Node Js
 echo "Install Node Js"
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash
-yum install nodejs gcc-c++ -y
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG_FILE
+yum install nodejs gcc-c++ -y &>>$LOG_FILE
 STAT $?
 
 ## Creating User
@@ -19,7 +19,7 @@ STAT $?
 ## Extracting the catalogue file
 echo "Extractingthe file"
 cd /home/roboshop
-unzip catalogue.zip
+unzip /tmp/catalogue.zip
 STAT $?
 
 ## Copy catalogue file to catalogue

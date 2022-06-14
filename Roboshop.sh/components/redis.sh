@@ -20,6 +20,7 @@ fi
 STAT $?
 
 ## Start redis
+echo "Start redis"
 systemctl enable redis &>>LOG_FILE
 systemctl start redis &>>LOG_FILE
 STAT $?

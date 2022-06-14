@@ -8,7 +8,7 @@ STAT $?
 
 ## Creating User
 echo "creating user"
-useradd roboshop
+useradd roboshop1
 STAT $?
 
 ## Downloading catalogue code

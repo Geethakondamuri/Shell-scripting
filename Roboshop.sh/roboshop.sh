@@ -1,6 +1,6 @@
 #!/bin/bash
-ID=$(id-u)
-if [ $ID -ne 0]; then
+ID=$(id -u)
+if [ $ID -ne 0 ]; then
   echo -e "\e[1;31mYou should be the root user to execute this script\[0m"
 exit 1
 fi

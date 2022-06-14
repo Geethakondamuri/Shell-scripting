@@ -1,4 +1,4 @@
-source common.sh
+source components/common.sh
 
 ##Inatalling Node Js
 echo "Install Node Js"

@@ -1,4 +1,4 @@
-source common.sh
+source components/common.sh
 
 ## Setup MongoDB repos
 echo "Downloading repo file"

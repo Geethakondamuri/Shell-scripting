@@ -1,4 +1,4 @@
-source common.sh
+source components/common.sh
 
 ## Installing nginx
 

@@ -13,7 +13,7 @@ STAT $?
 ## Searching 127.0.0.1 in /etc/mongod.conf
 echo "Searching 127.0.0.1 in /etc/mongod.conf"
 echo "grep 127.0.0.1 /etc/mongod.conf"
-grep 127.0.0.1 /etc/mongod.conf
+grep 127.0.0.1 /etc/mongod.conf &>>$LOG_FILE
 STAT $?
 
 ## Updating the mongodb config

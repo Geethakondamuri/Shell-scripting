@@ -54,7 +54,7 @@ fi
 
   ##Updating ${COMPONENT} SystemD file
   echo "Updating the ${COMPONENT} systemD file"
-  sed -i -e "s/Mongo_DNSNAME/mongodb.roboshop.internal/" /home/roboshop/${COMPONENT}/systemd.service
+  sed -i -e "s/Mongo_DNSNAME/mongodb.roboshop.internal/" /home/roboshop/catalogue/systemd.service
   STAT $?
 
   ##${COMPONENT} SystemD file setup

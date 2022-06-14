@@ -1,3 +1,13 @@
 
  LOG_FILE=/tmp/roboshop.log
- rm -f $LOG_FILE
+ rm -f
+
+## Declaring a function
+STAT(){
+  if [ $1 -eq 0 ]; then
+    echo "\e[1;31mSUCCESS\[0m"
+  else
+    echo "\e[1;31mFAILED\[0m"
+    exit 2
+  fi
+}

@@ -1,4 +1,8 @@
 #!/bin/bash
+if [ "$1" == "list" ]; then
+  aws ec2 describe-instances --query "Reservation[*].Instances[*].{PrivateIp:PrivateIpAddress,PublicIp:PublicIpAddress,Name:Tags[?key=='Name']|[0].value,Status:State.Name}" --output table
+fi
+
 ID=$(id -u)
 if [ $ID -ne 0 ]; then
   echo -e "\e[1;31mYou should be the root user to execute this script\[0m"

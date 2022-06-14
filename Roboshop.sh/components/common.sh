@@ -24,48 +24,48 @@ NODEJS(){
   echo "creating user"
   id roboshop
  if [ $? -ne 0 ]; then
-  useradd roboshop
+  useradd roboshop &>>$LOG_FILE
 fi
   STAT $?
 
   ## Downloading ${COMPONENT} code
   echo "downloading the ${COMPONENT}"
-  curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip"
+  curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>$LOG_FILE
   STAT $?
 
   ## Extracting the ${COMPONENT} file
   echo "Extractingthe file"
-  cd /home/roboshop
-  unzip -o /tmp/${COMPONENT}.zip
+  cd /home/roboshop &>>$LOG_FILE
+  unzip -o /tmp/${COMPONENT}.zip &>>$LOG_FILE
   STAT $?
 
   ## Copy ${COMPONENT} file to ${COMPONENT}
   echo "Copy ${COMPONENT}"
-  cp -r ${COMPONENT}-main /home/roboshop/${COMPONENT}
+  cp -r ${COMPONENT}-main /home/roboshop/${COMPONENT} &>>$LOG_FILE
   STAT $?
 
   ## Install Node Js dependencies
   echo "Install npm"
-  cd /home/roboshop/${COMPONENT}
-  npm install
+  cd /home/roboshop/${COMPONENT} &>>$LOG_FILE
+  npm install &>>$LOG_FILE
   STAT $?
 
-  Chown roboshop:roboshop /home/roboshop/ -R
+  chown roboshop:roboshop /home/roboshop/ -R &>>$LOG_FILE
 
   ##Updating ${COMPONENT} SystemD file
   echo "Updating the ${COMPONENT} systemD file"
-  sed -i -e "s/Mongo_DNSNAME/mongodb.roboshop.internal/" /home/roboshop/${COMPONENT}/systemd.service
+  sed -i -e "s/Mongo_DNSNAME/mongodb.roboshop.internal/" /home/roboshop/${COMPONENT}/systemd.service &>>$LOG_FILE
   STAT $?
 
   ##${COMPONENT} SystemD file setup
   echo "Setup ${COMPONENT} SystemD file"
-  mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service
+  mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>$LOG_FILE
   STAT $?
 
   ##Start the ${COMPONENT}
   echo "start the ${COMPONENT} service"
-  systemctl daemon-reload
-  systemctl enable ${COMPONENT}
-  systemctl start ${COMPONENT}
+  systemctl daemon-reload &>>$LOG_FILE
+  systemctl enable ${COMPONENT} &>>$LOG_FILE
+  systemctl start ${COMPONENT} &>>$LOG_FILE
   STAT $?
 }

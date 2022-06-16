@@ -49,19 +49,17 @@ fi
 
 IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${Instance_Name}" --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
 echo "${IPADDRESS}"
-echo "{
+echo '{
             "Comment": "CREATE/DELETE/UPSERT a record ",
             "Changes": [{
-            "Action": "CREATE",
+            "Action": "UPSERT",
                         "ResourceRecordSet": {
                                     "Name": "DNSNAME.roboshop.internal",
                                     "Type": "A",
                                     "TTL": 300,
                                  "ResourceRecords": [{ "Value": "IPADDRESS"}]
 }}]
-}" >/tmp/record.json
-exit
-| sed -e "s/DNSNAME/${Instance_Name}/" -e "s/IPADDRESS/${IPADDRESS}/" >/tmp/record.json
+}' | sed -e "s/DNSNAME/${Instance_Name}/" -e "s/IPADDRESS/${IPADDRESS}/" >/tmp/record.json
 
 Zone_Id=$(aws route53 list-hosted-zones --query "HostedZones[*].{name:Name,ID:Id}" --output text | grep roboshop.internal | awk '{print $1}' | awk -F / '{print $3}')
 echo "${Zone_Id}"

@@ -33,7 +33,7 @@ cp frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
 STAT $?
 
 echo "update roboshop config"
-sed -i -e "/catalogue/ s/localhost.conf/catalogue.roboshop.internal/" -e "/user/ s/localhost.conf/user.roboshop.internal/" /etc/nginx/default.d/roboshop.conf
+sed -i -e "/catalogue/ s/localhost.conf/catalogue.roboshop.internal/" -e "/user/ s/localhost.conf/user.roboshop.internal/" -e "/cart/ s/localhost.conf/cart.roboshop.internal/" /etc/nginx/default.d/roboshop.conf
 STAT $?
 
 ##staring nginx
